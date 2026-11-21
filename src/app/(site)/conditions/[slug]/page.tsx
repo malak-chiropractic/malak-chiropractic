@@ -41,10 +41,22 @@ export default async function ConditionPage({ params }: PageProps<"/conditions/[
               <h1 className="rise font-display max-w-4xl text-display-lg leading-[1.04] text-ink [animation-delay:80ms]">{c.title}</h1>
               <p className="rise mt-6 max-w-2xl text-xl leading-relaxed text-steel-deep [animation-delay:160ms]">{c.summary}</p>
             </div>
-            {c.illustration && (
-              <div className="rise lg:col-span-5 [animation-delay:200ms]">
+            {(c.photo || c.illustration) && (
+              <div className="rise relative lg:col-span-5 [animation-delay:200ms]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.illustration} alt={`Illustration of the anatomy involved in ${c.title.toLowerCase()}`} className="aspect-[4/3] w-full rounded-[24px] object-cover ring-1 ring-line" />
+                <img
+                  src={c.photo || c.illustration}
+                  alt={c.photo ? c.photoAlt || "" : `Illustration of the anatomy involved in ${c.title.toLowerCase()}`}
+                  className="aspect-[4/3] w-full rounded-[24px] object-cover ring-1 ring-line"
+                />
+                {c.photo && c.illustration && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={c.illustration}
+                    alt={`Illustration of the anatomy involved in ${c.title.toLowerCase()}`}
+                    className="absolute -bottom-6 left-3 w-[38%] rounded-2xl shadow-[0_18px_40px_-18px_rgba(23,25,28,0.45)] ring-4 ring-paper sm:-left-6"
+                  />
+                )}
               </div>
             )}
           </div>

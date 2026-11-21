@@ -127,6 +127,8 @@ export default config({
       columns: ["title", "region"],
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
+        photo: fields.image({ label: "Photo", description: "Optional lifestyle photo shown at the top of the page", directory: "public/images/photos", publicPath: "/images/photos/" }),
+        photoAlt: fields.text({ label: "Photo description (alt text)" }),
         illustration: fields.image({ label: "Illustration", directory: "public/images/conditions", publicPath: "/images/conditions/" }),
         region: fields.select({
           label: "Region",

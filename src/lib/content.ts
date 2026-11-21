@@ -113,6 +113,8 @@ export type Condition = {
   slug: string;
   title: string;
   illustration?: string;
+  photo?: string;
+  photoAlt?: string;
   region: Region;
   order: number;
   summary: string;
