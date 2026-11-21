@@ -127,6 +127,7 @@ export default config({
       columns: ["title", "region"],
       schema: {
         title: fields.slug({ name: { label: "Title" } }),
+        illustration: fields.image({ label: "Illustration", directory: "public/images/conditions", publicPath: "/images/conditions/" }),
         region: fields.select({
           label: "Region",
           defaultValue: "lumbar",

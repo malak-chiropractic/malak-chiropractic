@@ -1,242 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { Spine3D, viewName, type IliumMotion } from "./spine-3d";
 import type { AnatomyRegion } from "@/lib/content";
 
 type Key = AnatomyRegion["key"];
 type LinkRef = { slug: string; title: string };
 export type ExplorerRegion = AnatomyRegion & { articleLinks: LinkRef[]; conditionLinks: LinkRef[] };
 
-/* ─────────────────────────────────────────────────────────────
-   Original, schematic lateral (side-on) view of the spine.
-   Anterior faces left. Correct vertebral counts (7 cervical,
-   12 thoracic, 5 lumbar, fused sacrum, coccyx) and the four
-   natural curves: cervical lordosis, thoracic kyphosis,
-   lumbar lordosis and sacral kyphosis.
-   ───────────────────────────────────────────────────────────── */
-
-const CX = 176;
-const SEG = {
-  cervical: { start: 34, count: 7, body: 11, disc: 4, w: 22, spine: 15, amp: -15 },
-  thoracic: { start: 177, count: 12, body: 15, disc: 4.4, w: 28, spine: 21, amp: 28 },
-  lumbar: { start: 0, count: 5, body: 22, disc: 6, w: 38, spine: 17, amp: -22 },
-};
-const cervLen = SEG.cervical.count * (SEG.cervical.body + SEG.cervical.disc);
-SEG.thoracic.start = SEG.cervical.start + cervLen;
-const thorLen = SEG.thoracic.count * (SEG.thoracic.body + SEG.thoracic.disc);
-SEG.lumbar.start = SEG.thoracic.start + thorLen;
-const lumbLen = SEG.lumbar.count * (SEG.lumbar.body + SEG.lumbar.disc);
-const SACRUM_START = SEG.lumbar.start + lumbLen;
-const SACRUM_END = SACRUM_START + 104;
-
-function centerX(y: number): number {
-  for (const s of Object.values(SEG)) {
-    const len = s.count * (s.body + s.disc);
-    if (y >= s.start && y <= s.start + len) return CX + s.amp * Math.sin((Math.PI * (y - s.start)) / len);
-  }
-  if (y > SACRUM_START) {
-    const t = Math.min(1, (y - SACRUM_START) / (SACRUM_END - SACRUM_START + 40));
-    return CX + 46 * Math.pow(t, 1.35);
-  }
-  return CX;
-}
-function angleAt(y: number) {
-  const dx = centerX(y + 1) - centerX(y - 1);
-  return (-Math.atan2(dx, 2) * 180) / Math.PI;
-}
-
-type Vert = { key: Key; label: string; y: number; x: number; a: number; h: number; w: number; spine: number; idx: number };
-const VERTS: Vert[] = [];
-(Object.keys(SEG) as (keyof typeof SEG)[]).forEach((k) => {
-  const s = SEG[k];
-  for (let i = 0; i < s.count; i++) {
-    const y = s.start + i * (s.body + s.disc) + s.body / 2;
-    const grow = i / s.count;
-    VERTS.push({
-      key: k,
-      label: `${k[0].toUpperCase()}${i + 1}`,
-      y,
-      x: centerX(y),
-      a: angleAt(y),
-      h: s.body,
-      w: s.w + grow * 4,
-      // C7 (vertebra prominens) has a notably long spinous process
-      spine: k === "cervical" && i === 6 ? 23 : s.spine,
-      idx: i,
-    });
-  }
-});
-
-function sacrumPath() {
-  const left: string[] = [];
-  const right: string[] = [];
-  const steps = 10;
-  for (let i = 0; i <= steps; i++) {
-    const y = SACRUM_START + ((SACRUM_END - SACRUM_START) * i) / steps;
-    const w = 42 - 26 * (i / steps);
-    const x = centerX(y);
-    const a = (angleAt(y) * Math.PI) / 180;
-    const nx = Math.cos(a);
-    const ny = Math.sin(a);
-    left.push(`${(x - (w / 2 + 4) * nx).toFixed(1)},${(y - (w / 2 + 4) * ny).toFixed(1)}`);
-    right.unshift(`${(x + (w / 2 - 4) * nx).toFixed(1)},${(y + (w / 2 - 4) * ny).toFixed(1)}`);
-  }
-  return `M${left.join(" L")} L${right.join(" L")} Z`;
-}
-
-const REGION_BOUNDS: Record<Key, [number, number]> = {
-  cervical: [SEG.cervical.start - 8, SEG.thoracic.start - 1],
-  thoracic: [SEG.thoracic.start - 1, SEG.lumbar.start - 1],
-  lumbar: [SEG.lumbar.start - 1, SACRUM_START],
-  pelvis: [SACRUM_START, SACRUM_END + 44],
-};
-
-function SpineSvg({ selected, hover, onPick, onHover }: { selected: Key; hover: Key | null; onPick: (k: Key) => void; onHover: (k: Key | null) => void }) {
-  const tone = (k: Key) => (k === selected ? "sel" : k === hover ? "hov" : "off");
-  const fills = {
-    sel: { body: "var(--color-burgundy)", stroke: "var(--color-burgundy-deep)", disc: "var(--color-sky-deep)", post: "#9a4a62" },
-    hov: { body: "#c9ced3", stroke: "var(--color-steel)", disc: "var(--color-sky)", post: "#d6dade" },
-    off: { body: "#ffffff", stroke: "#9aa3aa", disc: "#e8f2f8", post: "#f1f3f4" },
-  };
-  const label = (k: Key) => ({ cervical: "Cervical", thoracic: "Thoracic", lumbar: "Lumbar", pelvis: "Sacrum & pelvis" })[k];
-  const sacTone = fills[tone("pelvis")];
-
-  return (
-    <svg viewBox="0 0 420 760" className="h-full w-full" aria-hidden focusable="false">
-      {/* ribs (context) */}
-      {VERTS.filter((v) => v.key === "thoracic").map((v) => (
-        <path
-          key={`rib-${v.idx}`}
-          d={`M${v.x - 6} ${v.y} C ${v.x - 40} ${v.y - 6}, ${v.x - 92} ${v.y + 8}, ${v.x - 104} ${v.y + 34 + v.idx * 1.5}`}
-          fill="none"
-          stroke={selected === "thoracic" ? "var(--color-sky-deep)" : "#e2e5e8"}
-          strokeWidth="1.1"
-          className="transition-[stroke] duration-500"
-        />
-      ))}
-      {/* pelvis / ilium (context) */}
-      <path
-        d={`M${CX + 70} ${SACRUM_START - 34} C ${CX + 128} ${SACRUM_START - 26}, ${CX + 138} ${SACRUM_START + 46}, ${CX + 96} ${SACRUM_START + 92} C ${CX + 66} ${SACRUM_START + 124}, ${CX + 6} ${SACRUM_START + 132}, ${CX - 34} ${SACRUM_START + 118} C ${CX - 64} ${SACRUM_START + 106}, ${CX - 52} ${SACRUM_START + 52}, ${CX - 6} ${SACRUM_START + 4} C ${CX + 18} ${SACRUM_START - 22}, ${CX + 44} ${SACRUM_START - 36}, ${CX + 70} ${SACRUM_START - 34} Z`}
-        fill={selected === "pelvis" ? "color-mix(in srgb, var(--color-sky) 70%, white)" : "#f4f6f7"}
-        stroke={selected === "pelvis" ? "var(--color-sky-deep)" : "#dde1e4"}
-        strokeWidth="1.2"
-        className="transition-[fill,stroke] duration-500"
-      />
-      <circle cx={CX - 18} cy={SACRUM_START + 96} r="17" fill="none" stroke={selected === "pelvis" ? "var(--color-steel)" : "#d3d8dc"} strokeWidth="1.2" />
-
-      {/* spinal cord / canal line */}
-      <path
-        d={`M${VERTS.map((v) => `${(v.x + Math.cos((v.a * Math.PI) / 180) * (v.w / 2 + 3)).toFixed(1)},${(v.y + Math.sin((v.a * Math.PI) / 180) * (v.w / 2 + 3)).toFixed(1)}`).join(" L")}`}
-        fill="none"
-        stroke="var(--color-butter)"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        opacity="0.9"
-      />
-
-      {/* vertebrae */}
-      {VERTS.map((v, i) => {
-        const f = fills[tone(v.key)];
-        const next = VERTS[i + 1];
-        const discY = v.y + v.h / 2 + (SEG[v.key as keyof typeof SEG].disc / 2);
-        return (
-          <g key={v.label}>
-            <g transform={`translate(${v.x.toFixed(1)} ${v.y.toFixed(1)}) rotate(${v.a.toFixed(2)})`} className="transition-all duration-500">
-              {/* posterior elements: pedicle, lamina and spinous process (angled downwards) */}
-              <path
-                d={`M${v.w / 2 - 6} ${-v.h / 2 + 1} L${v.w / 2 + 8} ${-v.h / 2 + 1} L${v.w / 2 + 8 + v.spine} ${v.key === "thoracic" ? v.h * 0.9 : v.key === "lumbar" ? -1 : v.h * 0.35} L${v.w / 2 + 6 + v.spine} ${v.key === "thoracic" ? v.h * 1.15 : v.key === "lumbar" ? v.h / 2 - 2 : v.h * 0.7} L${v.w / 2 + 4} ${v.h / 2 - 1} L${v.w / 2 - 6} ${v.h / 2 - 1} Z`}
-                fill={f.post}
-                stroke={f.stroke}
-                strokeWidth="0.9"
-                strokeLinejoin="round"
-                style={{ transition: "fill .5s, stroke .5s" }}
-              />
-              {/* vertebral body (anterior) */}
-              <rect x={-v.w / 2 - 4} y={-v.h / 2} width={v.w} height={v.h} rx={Math.min(5, v.h / 3)} fill={f.body} stroke={f.stroke} strokeWidth="1" style={{ transition: "fill .5s, stroke .5s" }} />
-            </g>
-            {/* intervertebral disc (none between C1 and C2) */}
-            {next && next.key === v.key && !(v.key === "cervical" && v.idx === 0) && (
-              <g transform={`translate(${centerX(discY).toFixed(1)} ${discY.toFixed(1)}) rotate(${angleAt(discY).toFixed(2)})`}>
-                <rect x={-v.w / 2 - 2} y={-SEG[v.key as keyof typeof SEG].disc / 2 + 0.6} width={v.w - 4} height={SEG[v.key as keyof typeof SEG].disc - 1.2} rx="2" fill={f.disc} style={{ transition: "fill .5s" }} />
-              </g>
-            )}
-          </g>
-        );
-      })}
-
-      {/* sacrum + coccyx */}
-      <path d={sacrumPath()} fill={sacTone.body} stroke={sacTone.stroke} strokeWidth="1" strokeLinejoin="round" style={{ transition: "fill .5s, stroke .5s" }} />
-      {[1, 2, 3, 4].map((n) => {
-        const y = SACRUM_START + n * ((SACRUM_END - SACRUM_START) / 5);
-        const x = centerX(y);
-        const a = (angleAt(y) * Math.PI) / 180;
-        const w = 42 - 26 * (n / 5);
-        return (
-          <line
-            key={n}
-            x1={x - (w / 2 + 2) * Math.cos(a)}
-            y1={y - (w / 2 + 2) * Math.sin(a)}
-            x2={x + (w / 2 - 6) * Math.cos(a)}
-            y2={y + (w / 2 - 6) * Math.sin(a)}
-            stroke={selected === "pelvis" ? "rgba(255,255,255,.55)" : "#d3d8dc"}
-            strokeWidth="1"
-          />
-        );
-      })}
-      {[0, 1, 2].map((n) => {
-        const y = SACRUM_END + 9 + n * 11;
-        return <ellipse key={n} cx={centerX(y) - 2} cy={y} rx={6 - n * 1.4} ry="4.4" fill={sacTone.body} stroke={sacTone.stroke} strokeWidth="0.9" />;
-      })}
-
-      {/* region labels with leader lines */}
-      {(Object.keys(REGION_BOUNDS) as Key[]).map((k) => {
-        const [a, b] = REGION_BOUNDS[k];
-        const mid = (a + b) / 2;
-        const active = k === selected;
-        return (
-          <g key={k} className="transition-opacity">
-            <line x1={centerX(mid) + 52} y1={mid} x2={300} y2={mid} stroke={active ? "var(--color-burgundy)" : "#c9ced3"} strokeWidth="1" />
-            <circle cx={300} cy={mid} r="3" fill={active ? "var(--color-burgundy)" : "#c9ced3"} />
-            <text x={310} y={mid + 4} fontSize="13" fontWeight={active ? 700 : 500} fill={active ? "var(--color-ink)" : "var(--color-steel-deep)"} fontFamily="var(--font-sans)">
-              {label(k)}
-            </text>
-          </g>
-        );
-      })}
-
-      {/* hit areas for pointer and touch */}
-      {(Object.keys(REGION_BOUNDS) as Key[]).map((k) => {
-        const [a, b] = REGION_BOUNDS[k];
-        return (
-          <rect
-            key={`hit-${k}`}
-            x="60"
-            y={a}
-            width="380"
-            height={b - a}
-            fill="transparent"
-            className="cursor-pointer"
-            onClick={() => onPick(k)}
-            onPointerEnter={() => onHover(k)}
-            onPointerLeave={() => onHover(null)}
-          />
-        );
-      })}
-
-      <text x="24" y="752" fontSize="11" fill="var(--color-steel-deep)" fontFamily="var(--font-sans)" letterSpacing="1.5">
-        ← ANTERIOR (FRONT)
-      </text>
-      <text x="396" y="752" fontSize="11" fill="var(--color-steel-deep)" fontFamily="var(--font-sans)" letterSpacing="1.5" textAnchor="end">
-        POSTERIOR (BACK) →
-      </text>
-    </svg>
-  );
-}
-
 export function SpineExplorer({ regions, intro, compact = false }: { regions: ExplorerRegion[]; intro: string; compact?: boolean }) {
   const [selected, setSelected] = useState<Key>("lumbar");
   const [hover, setHover] = useState<Key | null>(null);
+  const [angle, setAngle] = useState(0);
+  const [motion, setMotion] = useState<IliumMotion>("neutral");
+  const drag = useRef<{ x: number; a: number } | null>(null);
+  const onDown = (e: PointerEvent<HTMLDivElement>) => {
+    drag.current = { x: e.clientX, a: angle };
+  };
+  const onMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (!drag.current) return;
+    const dx = e.clientX - drag.current.x;
+    if (Math.abs(dx) > 3) (e.currentTarget as HTMLDivElement).setPointerCapture?.(e.pointerId);
+    setAngle((((drag.current.a + dx * 0.8) % 360) + 360) % 360);
+  };
+  const onUp = () => {
+    drag.current = null;
+  };
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const uid = useId();
   const current = regions.find((r) => r.key === selected) ?? regions[0];
@@ -293,10 +83,89 @@ export function SpineExplorer({ regions, intro, compact = false }: { regions: Ex
                 );
               })}
             </div>
-            <div className={`relative mx-auto mt-4 ${compact ? "max-w-[320px]" : "max-w-[400px]"}`} style={{ aspectRatio: "420 / 760" }}>
-              <SpineSvg selected={selected} hover={hover} onPick={setSelected} onHover={setHover} />
+            <div
+              className={`relative mx-auto mt-4 cursor-grab active:cursor-grabbing ${compact ? "max-w-[320px]" : "max-w-[400px]"}`}
+              style={{ aspectRatio: "460 / 800" }}
+              onPointerDown={onDown}
+              onPointerMove={onMove}
+              onPointerUp={onUp}
+              onPointerCancel={onUp}
+            >
+              <Spine3D angle={angle} selected={selected} hover={hover} motion={selected === "pelvis" ? motion : "neutral"} onPick={setSelected} onHover={setHover} />
             </div>
-            <p className="mt-2 text-center text-xs text-steel-deep">Original schematic illustration · side view</p>
+
+            {/* Rotation controls */}
+            <div className="mt-3 rounded-2xl bg-paper p-4">
+              <div className="flex items-center justify-between gap-3">
+                <label htmlFor={`${uid}-rot`} className="text-xs font-semibold uppercase tracking-[0.14em] text-steel-deep">
+                  Rotate 360°
+                </label>
+                <span className="text-xs font-medium text-ink" aria-live="polite">{viewName(angle)}</span>
+              </div>
+              <input
+                id={`${uid}-rot`}
+                type="range"
+                min={0}
+                max={359}
+                value={Math.round(angle)}
+                onChange={(e) => setAngle(Number(e.target.value))}
+                aria-valuetext={`${Math.round(angle)} degrees, ${viewName(angle)}`}
+                className="mt-2 w-full accent-burgundy"
+              />
+              <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label="Preset views">
+                {[
+                  ["Side", 0],
+                  ["Back", 90],
+                  ["Other side", 180],
+                  ["Front", 270],
+                ].map(([l, v]) => (
+                  <button
+                    key={l as string}
+                    type="button"
+                    onClick={() => setAngle(v as number)}
+                    aria-pressed={Math.round(angle) === v}
+                    className={`min-h-9 rounded-full px-3 text-xs font-semibold transition ${Math.round(angle) === v ? "bg-ink text-white" : "bg-white text-ink ring-1 ring-line hover:ring-ink"}`}
+                  >
+                    {l as string}
+                  </button>
+                ))}
+              </div>
+              <p className="mt-2 text-[0.72rem] text-steel-deep">Drag the model, use the slider, or choose a view.</p>
+            </div>
+
+            {selected === "pelvis" && (
+              <div className="mt-3 rounded-2xl bg-sky/60 p-4 ring-1 ring-sky-deep/50">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel-deep">Pelvic (ilium) rotation · right side</p>
+                <div className="mt-2 flex flex-wrap gap-1.5" role="group" aria-label="Ilium rotation">
+                  {(
+                    [
+                      ["neutral", "Neutral"],
+                      ["AS", "AS — anterior-superior"],
+                      ["PI", "PI — posterior-inferior"],
+                    ] as [IliumMotion, string][]
+                  ).map(([v, l]) => (
+                    <button
+                      key={v}
+                      type="button"
+                      aria-pressed={motion === v}
+                      onClick={() => {
+                        setMotion(v);
+                        if (v !== "neutral" && (angle > 60 && angle < 300)) setAngle(0);
+                      }}
+                      className={`min-h-9 rounded-full px-3 text-xs font-semibold transition ${motion === v ? "bg-burgundy text-white" : "bg-white text-ink ring-1 ring-line hover:ring-burgundy"}`}
+                    >
+                      {l}
+                    </button>
+                  ))}
+                </div>
+                <p className="mt-2 text-[0.78rem] leading-relaxed text-[#2b2f34]">
+                  {motion === "AS" && "The ilium (hip bone) rotates so the back of the pelvis (PSIS) moves forwards and up relative to the sacrum."}
+                  {motion === "PI" && "The ilium rotates so the back of the pelvis (PSIS) moves backwards and down relative to the sacrum."}
+                  {motion === "neutral" && "Choose AS or PI to see how the ilium can rotate at the sacroiliac joint. Side views show it best."}{" "}
+                  The sacroiliac joint normally moves only a few degrees; the motion here is exaggerated so it&apos;s easy to see.
+                </p>
+              </div>
+            )}
           </div>
         </div>
 

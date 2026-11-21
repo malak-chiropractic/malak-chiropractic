@@ -27,7 +27,11 @@ export default function ConditionsPage() {
             {conditions.map((c, i) => (
               <li key={c.slug} className="border-t border-line" data-reveal style={{ transitionDelay: `${(i % 2) * 70}ms` }}>
                 <Link href={`/conditions/${c.slug}`} className="group flex items-start justify-between gap-6 py-7">
-                  <span>
+                  {c.illustration && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={c.illustration} alt="" aria-hidden className="hidden h-24 w-32 shrink-0 rounded-2xl object-cover ring-1 ring-line sm:block" loading="lazy" />
+                  )}
+                  <span className="flex-1">
                     <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-steel-deep">{regionLabel[c.region]}</span>
                     <h2 className="font-display mt-2 text-[1.6rem] leading-tight text-ink transition-colors group-hover:text-burgundy">{c.title}</h2>
                     <p className="mt-2 leading-relaxed text-steel-deep">{c.summary}</p>

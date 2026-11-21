@@ -36,8 +36,18 @@ export default async function ConditionPage({ params }: PageProps<"/conditions/[
           <nav aria-label="Breadcrumb" className="rise text-sm text-steel-deep">
             <Link href="/conditions" className="hover:text-burgundy">Conditions and concerns</Link> <span aria-hidden>/</span> <span aria-current="page">{c.title}</span>
           </nav>
-          <h1 className="rise font-display mt-8 max-w-4xl text-display-lg leading-[1.04] text-ink [animation-delay:80ms]">{c.title}</h1>
-          <p className="rise mt-6 max-w-2xl text-xl leading-relaxed text-steel-deep [animation-delay:160ms]">{c.summary}</p>
+          <div className="mt-8 grid items-center gap-10 lg:grid-cols-12">
+            <div className="lg:col-span-7">
+              <h1 className="rise font-display max-w-4xl text-display-lg leading-[1.04] text-ink [animation-delay:80ms]">{c.title}</h1>
+              <p className="rise mt-6 max-w-2xl text-xl leading-relaxed text-steel-deep [animation-delay:160ms]">{c.summary}</p>
+            </div>
+            {c.illustration && (
+              <div className="rise lg:col-span-5 [animation-delay:200ms]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={c.illustration} alt={`Illustration of the anatomy involved in ${c.title.toLowerCase()}`} className="aspect-[4/3] w-full rounded-[24px] object-cover ring-1 ring-line" />
+              </div>
+            )}
+          </div>
         </Container>
       </section>
 

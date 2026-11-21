@@ -112,6 +112,7 @@ export type Region = "cervical" | "thoracic" | "lumbar" | "pelvis" | "peripheral
 export type Condition = {
   slug: string;
   title: string;
+  illustration?: string;
   region: Region;
   order: number;
   summary: string;
