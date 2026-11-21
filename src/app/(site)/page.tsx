@@ -344,22 +344,22 @@ export default function HomePage() {
           <div className="lg:col-span-5" data-reveal>
             <Eyebrow index="07">Visit us</Eyebrow>
             <h2 className="font-display mt-6 text-display-lg leading-[1.05] text-ink">Find us in Panania.</h2>
-            <dl className="mt-10 space-y-6">
+            <div className="mt-10 space-y-6">
               <div className="flex gap-4">
                 <Icon name="pin" className="h-6 w-6 shrink-0 text-burgundy" />
                 <div>
-                  <dt className="text-sm text-steel-deep">Address</dt>
-                  <dd className="mt-0.5 font-semibold text-ink">
+                  <p className="text-sm text-steel-deep">Address</p>
+                  <div className="mt-0.5 font-semibold text-ink">
                     {clinic.streetAddress}, {clinic.suburb} {clinic.state} {clinic.postcode}
                     <span className="block font-normal text-steel-deep">{clinic.locationNote}</span>
-                  </dd>
+                  </div>
                 </div>
               </div>
               <div className="flex gap-4">
                 <Icon name="clock" className="h-6 w-6 shrink-0 text-burgundy" />
                 <div>
-                  <dt className="text-sm text-steel-deep">Hours</dt>
-                  <dd className="mt-0.5 text-ink">
+                  <p className="text-sm text-steel-deep">Hours</p>
+                  <div className="mt-0.5 text-ink">
                     {openDays.map((d) => (
                       <span key={d.day} className="block font-semibold">
                         {d.day} · {d.note}
@@ -368,21 +368,21 @@ export default function HomePage() {
                     <span className="mt-1 block text-sm text-steel-deep">
                       <Inline text={clinic.hoursNote} />
                     </span>
-                  </dd>
+                  </div>
                 </div>
               </div>
               <div className="flex gap-4">
                 <Icon name="phone" className="h-6 w-6 shrink-0 text-burgundy" />
                 <div>
-                  <dt className="text-sm text-steel-deep">Phone and email</dt>
-                  <dd className="mt-0.5 font-semibold text-ink">
+                  <p className="text-sm text-steel-deep">Phone and email</p>
+                  <div className="mt-0.5 font-semibold text-ink">
                     <a href={`tel:${clinic.phone.replace(/\s/g, "")}`} className="hover:text-burgundy">
                       {clinic.phone}
                     </a>
                     <a href={`mailto:${clinic.email}`} className="block break-all font-normal text-steel-deep hover:text-burgundy">
                       {clinic.email}
                     </a>
-                  </dd>
+                  </div>
                 </div>
               </div>
               <div className="border-t border-line pt-6 text-sm leading-relaxed text-steel-deep">
@@ -393,7 +393,7 @@ export default function HomePage() {
                   <strong className="text-ink">Accessibility:</strong> <Inline text={clinic.accessibility} />
                 </p>
               </div>
-            </dl>
+            </div>
             <div className="mt-8 flex flex-wrap gap-3">
               <BookButton url={clinic.bookingUrl} />
               <ButtonLink href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(fullAddress(clinic))}`} external variant="ghost">
