@@ -1,0 +1,93 @@
+intro: Select a region of the spine to explore its anatomy, what it does, and the musculoskeletal concerns commonly associated with it. This is general education — not a symptom checker or diagnosis.
+regions:
+  - key: cervical
+    label: Cervical spine
+    range: C1–C7
+    count: 7 vertebrae
+    summary: The neck. Seven small, highly mobile vertebrae that support the head and protect the upper spinal cord.
+    structures:
+      - Atlas (C1) and axis (C2), which allow nodding and much of head rotation
+      - Facet joints that guide movement between vertebrae
+      - Intervertebral discs from C2–C3 downward
+      - Nerve roots that supply the shoulders, arms and hands
+      - Deep neck flexors and extensors that support posture
+    function: The cervical spine balances a head weighing around 4–6 kg while allowing a wide range of movement — looking up, down and over your shoulder. Its gentle inward curve (lordosis) helps absorb load.
+    symptoms:
+      - Neck stiffness or aching
+      - Reduced ability to turn the head
+      - Headache that starts at the base of the skull
+      - Pain, tingling or numbness spreading into the shoulder or arm
+    seekCare: See a health professional if neck pain persists beyond a few weeks or spreads into the arm. Seek urgent care for neck pain after significant trauma, or with sudden severe headache, dizziness, slurred speech, difficulty swallowing, or weakness or clumsiness in the hands.
+    articles:
+      - neck-pain-and-headaches
+    conditions:
+      - neck-pain
+      - headaches
+  - key: thoracic
+    label: Thoracic spine
+    range: T1–T12
+    count: 12 vertebrae
+    summary: The mid and upper back. Twelve vertebrae that connect with the ribs to form a stable, protective frame for the chest.
+    structures:
+      - Costovertebral joints connecting each vertebra to a pair of ribs
+      - Facet joints oriented for rotation
+      - Spinal cord within the spinal canal
+      - Muscles between and around the shoulder blades
+    function: The thoracic spine provides stability and protection for the heart and lungs while allowing rotation of the trunk. Its outward curve (kyphosis) is normal and varies between people.
+    symptoms:
+      - Ache or tightness between the shoulder blades
+      - Stiffness when twisting or taking a deep breath
+      - Pain wrapping around the ribs
+    seekCare: Because heart, lung and abdominal problems can refer pain to the mid-back, call 000 for mid-back pain with chest pain, shortness of breath or pain spreading to the jaw or arm. See a doctor for pain with fever, weight loss or after a fall.
+    articles:
+      - acute-vs-chronic-pain
+    conditions:
+      - mid-back-pain
+      - work-related-discomfort
+  - key: lumbar
+    label: Lumbar spine
+    range: L1–L5
+    count: 5 vertebrae
+    summary: The lower back. Five large vertebrae built to carry the weight of the upper body during movement.
+    structures:
+      - Large vertebral bodies and intervertebral discs
+      - Facet joints oriented for bending forward and back
+      - Nerve roots forming the cauda equina and sciatic nerve
+      - Deep and superficial trunk muscles, including multifidus
+    function: The lumbar spine bears more load than any other spinal region and allows bending, lifting and extending. Its inward curve (lordosis) helps distribute forces.
+    symptoms:
+      - Lower back ache or stiffness
+      - Pain with bending, lifting, sitting or getting out of bed
+      - Pain spreading into the buttock or leg
+      - Pins and needles or numbness in the leg
+    seekCare: Most lower back pain isn't serious. Seek emergency care for loss of bladder or bowel control, numbness around the groin or buttocks, or rapidly worsening leg weakness. See a doctor for back pain with fever, unexplained weight loss or a history of cancer.
+    articles:
+      - lower-back-pain-causes
+      - back-pain-when-to-see-a-doctor
+      - exercise-persistent-pain
+    conditions:
+      - lower-back-pain
+      - sciatica
+      - persistent-pain
+  - key: pelvis
+    label: Sacrum and pelvis
+    range: S1–S5 · Coccyx
+    count: 5 fused segments
+    summary: The base of the spine. The sacrum connects the spine to the pelvis through the sacroiliac joints.
+    structures:
+      - Sacrum, formed from five fused vertebrae
+      - Sacroiliac joints linking the sacrum to the pelvis
+      - Coccyx (tailbone)
+      - Strong ligaments and the gluteal and pelvic floor muscles
+    function: The sacrum and pelvis transfer load between the spine and legs during standing, walking and lifting. The sacroiliac joints move only slightly and are supported by very strong ligaments.
+    symptoms:
+      - Pain over the buttock or back of the pelvis
+      - Pain with standing on one leg, climbing stairs or rolling in bed
+      - Pelvic girdle pain during pregnancy
+      - Tailbone pain when sitting
+    seekCare: See a health professional for persistent buttock or pelvic pain. Seek prompt medical review for pain with fever, after a fall, or with bladder, bowel or sensation changes. In pregnancy, contact your midwife or doctor about new or severe pelvic pain.
+    articles:
+      - lower-back-pain-causes
+    conditions:
+      - hip-pain
+      - lower-back-pain

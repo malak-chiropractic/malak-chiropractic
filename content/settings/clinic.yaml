@@ -1,0 +1,40 @@
+name: Malak Chiropractic
+tagline: Individualised chiropractic care in Panania
+streetAddress: 75 Anderson Avenue
+suburb: Panania
+state: NSW
+postcode: '2213'
+locationNote: Located within Panania Family Doctors
+phone: 02 9053 8383
+mobile: 0450 537 308
+email: malakchiropractic@gmail.com
+bookingUrl: https://malak-chiropractic.au4.cliniko.com/bookings
+hours:
+  - day: Monday
+    open: false
+    note: ''
+  - day: Tuesday
+    open: true
+    note: 9:00 AM – 5:00 PM
+  - day: Wednesday
+    open: false
+    note: ''
+  - day: Thursday
+    open: false
+    note: ''
+  - day: Friday
+    open: false
+    note: ''
+  - day: Saturday
+    open: false
+    note: ''
+  - day: Sunday
+    open: false
+    note: ''
+hoursNote: 'Tuesday is our confirmed clinic day. [TO CONFIRM: any additional clinic days or hours]'
+parking: 'Free 2-hour parking across the road at Panania Family Doctors.'
+accessibility: '[TO CONFIRM: wheelchair access, step-free entry, accessible bathroom]'
+publicTransport: '[TO CONFIRM: walking time from Panania station and nearby bus stops]'
+emergencyNotice: 'This website and our enquiry forms are not monitored for emergencies. If you need urgent medical help, call 000 or go to your nearest emergency department.'
+instagram: ''
+linkedin: ''

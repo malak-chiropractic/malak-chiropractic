@@ -1,26 +1,252 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   Malak Chiropractic — design tokens
+   Steel grey, near black and white dominate. Burgundy, baby blue and
+   butter yellow are accents, each with one job:
+     burgundy  → action and emphasis (primary buttons, links, focus)
+     baby blue → education (anatomy, articles, explanatory panels)
+     butter    → small human moments (open-day marker, highlights)
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --color-steel: #66717a;
+  --color-steel-deep: #525c64; /* text-safe steel on soft white (AA) */
+  --color-ink: #17191c;
+  --color-paper: #f8f9fa;
+  --color-white: #ffffff;
+  --color-burgundy: #762d43;
+  --color-burgundy-deep: #5e2235;
+  --color-sky: #dcecf5;
+  --color-sky-deep: #b9d8ea;
+  --color-butter: #f5e7a8;
+  --color-line: #e2e5e8;
+  --color-line-strong: #c9ced3;
+
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Gilda Display", ui-serif, Georgia, serif;
+
+  --text-display-xl: clamp(2.6rem, 1.5rem + 4.3vw, 5.1rem);
+  --text-display-lg: clamp(2.25rem, 1.5rem + 3.2vw, 4.25rem);
+  --text-display-md: clamp(1.75rem, 1.3rem + 1.9vw, 2.75rem);
+  --text-display-sm: clamp(1.375rem, 1.15rem + 0.9vw, 1.875rem);
+
+  --ease-calm: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --header-h: 4.25rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-butter);
+  color: var(--color-ink);
+}
+
+/* Visible, consistent focus for keyboard users (WCAG 2.2 focus appearance) */
+:focus-visible {
+  outline: 2px solid var(--color-burgundy);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  background: var(--color-ink);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* [TO CONFIRM: …] placeholders — deliberately easy to spot */
+.tc {
+  background: repeating-linear-gradient(135deg, #fff6d6 0 6px, #fdf0c4 6px 12px);
+  color: var(--color-burgundy-deep);
+  border: 1px dashed var(--color-burgundy);
+  border-radius: 4px;
+  padding: 0 0.3em;
+  font-size: 0.92em;
+  font-weight: 600;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Hairline rule used throughout the editorial layout */
+.rule {
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* Scroll reveal (progressive: content is visible without JS) */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s var(--ease-calm), transform 0.8s var(--ease-calm);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Long-form article typography */
+.prose-malak {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: #2b2f34;
+}
+.prose-malak > * + * {
+  margin-top: 1.15em;
+}
+.prose-malak h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--color-ink);
+  margin-top: 2.2em;
+}
+.prose-malak h3 {
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: var(--color-ink);
+  margin-top: 1.8em;
+}
+.prose-malak ul {
+  list-style: none;
+  padding-left: 0;
+}
+.prose-malak ul li {
+  position: relative;
+  padding-left: 1.4em;
+}
+.prose-malak ul li + li {
+  margin-top: 0.45em;
+}
+.prose-malak ul li::before {
+  content: "";
+  position: absolute;
+  left: 0.2em;
+  top: 0.72em;
+  width: 0.45em;
+  height: 1px;
+  background: var(--color-burgundy);
+}
+.prose-malak ol {
+  list-style: decimal;
+  padding-left: 1.3em;
+}
+.prose-malak a {
+  color: var(--color-burgundy);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.prose-malak strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+.prose-malak blockquote {
+  border-left: 2px solid var(--color-sky-deep);
+  background: color-mix(in srgb, var(--color-sky) 45%, white);
+  padding: 1rem 1.25rem;
+  border-radius: 0 12px 12px 0;
+}
+
+/* Accordion built on native <details> — keyboard and screen reader friendly with zero JS */
+details.acc > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details.acc > summary::-webkit-details-marker {
+  display: none;
+}
+details.acc .acc-icon {
+  transition: transform 0.35s var(--ease-calm);
+}
+details.acc[open] .acc-icon {
+  transform: rotate(45deg);
+}
+
+/* Hero spine line drawing */
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--len, 1200);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.draw-line {
+  stroke-dasharray: var(--len, 1200);
+  animation: draw 2.4s var(--ease-calm) 0.2s both;
+}
+.rise {
+  animation: rise 0.9s var(--ease-calm) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
 }

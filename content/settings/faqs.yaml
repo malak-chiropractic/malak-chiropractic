@@ -1,0 +1,82 @@
+categories:
+- key: general
+  label: General chiropractic questions
+- key: before
+  label: Before your appointment
+- key: safety
+  label: Treatment and safety
+- key: pregnancy
+  label: Pregnancy and paediatrics
+- key: pricing
+  label: Pricing and payments
+- key: referrals
+  label: Referrals and GP information
+- key: booking
+  label: Booking and clinic policies
+items:
+- category: general
+  question: What does a chiropractor do?
+  answer: Chiropractors are registered health practitioners who assess, diagnose and manage musculoskeletal conditions — particularly those involving the spine. Care may include hands-on techniques, exercise, education and advice, and referral to other practitioners when appropriate.
+- category: general
+  question: Is chiropractic care evidence-based?
+  answer: For some conditions, such as lower back pain and neck pain, spinal manipulation and exercise are included in clinical guidelines as treatment options, usually as part of a broader plan. Evidence varies between conditions and techniques, and we'll be honest about what's known.
+- category: general
+  question: Are chiropractors registered in Australia?
+  answer: Yes. Chiropractors in Australia must be registered with the Chiropractic Board of Australia through Ahpra. You can check any practitioner's registration on the Ahpra public register.
+- category: before
+  question: Do I need a referral?
+  answer: No, you can book directly. A GP referral is needed only if you're using a Medicare GP Chronic Condition Management Plan, or for workers compensation or DVA arrangements.
+- category: before
+  question: What should I wear?
+  answer: Comfortable clothing you can move in, like activewear. Most assessments don't require undressing, and we'll always explain and ask first.
+- category: before
+  question: What should I bring?
+  answer: A list of medications, any relevant scans or reports, your health fund card, and any referral letters. You don't need X-rays or scans to book.
+- category: before
+  question: How long is the first appointment?
+  answer: '[TO CONFIRM: initial consultation duration]'
+- category: safety
+  question: Is chiropractic treatment safe?
+  answer: All health treatments carry some risk. Mild soreness or stiffness for a day or two is common after manual therapy. Serious complications are rare. We screen for risk factors before treatment and discuss the risks and benefits relevant to you.
+- category: safety
+  question: Do I have to have manipulation?
+  answer: No. Manipulation is one option. Lower-force techniques, soft tissue therapy and exercise-based care are alternatives. You can decline any technique at any time.
+- category: safety
+  question: What is the cracking sound?
+  answer: It's caused by a change in pressure within the joint fluid, releasing gas. It doesn't mean bones are moving back into place, and a sound isn't necessary for a technique to be effective.
+- category: safety
+  question: Will I need X-rays?
+  answer: Usually not. Imaging is considered when there are signs of a serious condition or when results would change your care. We'll coordinate with your GP if imaging is needed.
+- category: pregnancy
+  question: Can I see a chiropractor while pregnant?
+  answer: Many pregnant people experience lower back or pelvic girdle discomfort. We can assess whether chiropractic care is appropriate for you and adapt positioning and techniques. We work alongside your midwife, GP or obstetrician, and some symptoms in pregnancy need medical review first.
+- category: pregnancy
+  question: Do you see children?
+  answer: We assess children where a musculoskeletal concern makes assessment clinically appropriate, with a parent or guardian's consent and presence. Care is adapted to age and size. We don't claim chiropractic care treats childhood illnesses or developmental conditions, and we'll refer to a GP or paediatrician whenever that's more appropriate.
+- category: pricing
+  question: How much does an appointment cost?
+  answer: 'See our New Patients page for current fees. [TO CONFIRM: fees]'
+- category: pricing
+  question: Can I claim on private health insurance?
+  answer: If your extras cover includes chiropractic, you may be able to claim. We offer on-the-spot HICAPS claiming. Rebates depend on your fund and level of cover.
+- category: pricing
+  question: Is chiropractic covered by Medicare?
+  answer: Medicare rebates are available for up to 5 allied health services per calendar year if your GP has prepared a Chronic Condition Management Plan and referred you. The 5 services are shared across all allied health providers. A gap fee may apply.
+- category: pricing
+  question: Do you accept DVA and workers compensation?
+  answer: Yes. We accept DVA and NSW workers compensation patients. Malak Chiropractic is SIRA-approved. Please bring your claim number and referral details.
+- category: referrals
+  question: How does my GP refer me?
+  answer: Your GP can provide a referral letter addressed to Malak Chiropractic. If you're accessing Medicare rebates, the referral must be under a GP Chronic Condition Management Plan. Bring the letter to your first appointment.
+- category: referrals
+  question: Will you communicate with my GP?
+  answer: With your consent, we send your GP a summary of our findings and plan, and update them as needed — this is required after the first visit under a Medicare referral.
+- category: booking
+  question: How do I book?
+  answer: Book online at any time through our Cliniko booking page, or call us. Online booking is available for initial and follow-up appointments.
+- category: booking
+  question: What is your cancellation policy?
+  answer: Please give at least 4 hours' notice to cancel or reschedule. A fee may apply for late cancellations or missed appointments.
+- category: booking
+  question: When is the clinic open?
+  answer: 'Our confirmed clinic day is Tuesday, 9:00 AM – 5:00 PM. [TO CONFIRM: any additional days]'
