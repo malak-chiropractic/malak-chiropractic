@@ -1,6 +1,6 @@
 # 12-month editorial calendar (Dec 2026 – Nov 2027)
 
-Already written (awaiting review): the six starter articles, plus *Tennis elbow*, *Can you see a chiropractor if you have arthritis?*, *Why is it harder to go up and down the stairs?* and *Why does my neck feel stiffer as I get older?*
+Already written (awaiting review): the six starter articles, plus *Tennis elbow*, *Can you see a chiropractor if you have arthritis?*, *Why is it harder to go up and down the stairs?* and *Why does my neck feel stiffer as I get older?* and *Can't get on with the tasks of the day? Disc-related nerve pain in active people*
 
 The clinic's most common groups — **older adults**, **neck pain**, and **tennis elbow / manual and desk workers** — are prioritised. Older-adult titles are phrased as the questions patients actually ask, which is also how they search.
 
