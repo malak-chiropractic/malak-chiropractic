@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getClinic, getProducts } from "@/lib/content";
+import { getProducts } from "@/lib/content";
 import { ButtonLink, Container, PageHero, PhotoPlaceholder, Photo } from "@/components/ui";
 import { Inline } from "@/components/rich";
 
@@ -13,7 +13,6 @@ const accents = { sky: "bg-sky", butter: "bg-butter/80", burgundy: "bg-burgundy/
 
 export default function ProductsPage() {
   const products = getProducts();
-  const c = getClinic();
   return (
     <>
       <PageHero eyebrow="In clinic" title="A few good things, on the shelf." intro={<p>Products we stock for convenience. They&apos;re entirely optional, and aren&apos;t part of — or a substitute for — your care.</p>} />

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Markdoc from "@markdoc/markdoc";
 import React from "react";
-import { categoryLabel, formatDate, getArticle, getArticles, getClinic, renderMarkdoc, SITE_URL } from "@/lib/content";
+import { audienceLabel, categoryLabel, formatDate, getArticle, getArticles, getClinic, renderMarkdoc, SITE_URL } from "@/lib/content";
 import { BookButton, Container, Eyebrow } from "@/components/ui";
 import { ArticleCard, ArticleCover } from "@/components/article-card";
 import { JsonLd } from "@/components/json-ld";
@@ -73,6 +73,16 @@ export default async function ArticlePage({ params }: PageProps<"/education/[slu
                 <dd className="font-semibold text-ink">{a.reviewedDate ? <>{formatDate(a.reviewedDate)}{a.reviewer && ` · ${a.reviewer}`}</> : <span className="text-burgundy">Pending review</span>}</dd>
               </div>
               <div><dt className="text-steel-deep">Reading time</dt><dd className="font-semibold text-ink">{a.readingMinutes} min</dd></div>
+              {a.audiences.filter((x) => x !== "everyone").length > 0 && (
+                <div>
+                  <dt className="text-steel-deep">Written for</dt>
+                  <dd className="mt-0.5 flex flex-wrap gap-1.5">
+                    {a.audiences.filter((x) => x !== "everyone").map((x) => (
+                      <span key={x} className="rounded-full bg-sky px-2.5 py-0.5 text-xs font-semibold text-ink">{audienceLabel(x)}</span>
+                    ))}
+                  </dd>
+                </div>
+              )}
             </dl>
             <div className="mt-10 aspect-[21/9] overflow-hidden rounded-[24px]">
               <ArticleCover article={a} />

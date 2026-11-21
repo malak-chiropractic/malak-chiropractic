@@ -2,24 +2,27 @@
 
 import { useMemo, useState, type ReactNode } from "react";
 
-export type LibraryItem = { slug: string; title: string; summary: string; category: string; text: string };
+export type LibraryItem = { slug: string; title: string; summary: string; category: string; audiences: string[]; text: string };
 
 /** Search + category filter. Cards are rendered on the server and passed in, keyed by slug. */
 export function ArticleLibrary({
   items,
   categories,
+  audiences,
   cards,
 }: {
   items: LibraryItem[];
   categories: { key: string; label: string; count: number }[];
+  audiences: { key: string; label: string; count: number }[];
   cards: Record<string, ReactNode>;
 }) {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("all");
+  const [aud, setAud] = useState<string>("all");
   const results = useMemo(() => {
     const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
-    return items.filter((i) => (cat === "all" || i.category === cat) && terms.every((t) => i.text.includes(t)));
-  }, [items, q, cat]);
+    return items.filter((i) => (cat === "all" || i.category === cat) && (aud === "all" || i.audiences.includes(aud) || i.audiences.includes("everyone")) && terms.every((t) => i.text.includes(t)));
+  }, [items, q, cat, aud]);
 
   return (
     <div>
@@ -43,7 +46,21 @@ export function ArticleLibrary({
           {results.length} {results.length === 1 ? "article" : "articles"}
         </p>
       </div>
-      <div role="group" aria-label="Filter by category" className="mt-6 flex flex-wrap gap-2">
+      <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:items-center">
+        <label htmlFor="audience" className="text-sm font-semibold text-ink">Written for</label>
+        <select
+          id="audience"
+          value={aud}
+          onChange={(e) => setAud(e.target.value)}
+          className="min-h-11 rounded-full border border-line-strong bg-white px-4 text-sm text-ink outline-none focus:border-burgundy focus:ring-4 focus:ring-burgundy/10 sm:w-auto"
+        >
+          <option value="all">Anyone</option>
+          {audiences.filter((a) => a.key !== "everyone" && a.count > 0).map((a) => (
+            <option key={a.key} value={a.key}>{a.label}</option>
+          ))}
+        </select>
+      </div>
+      <div role="group" aria-label="Filter by category" className="mt-4 flex flex-wrap gap-2">
         {[{ key: "all", label: "All", count: items.length }, ...categories].map((c) => (
           <button
             key={c.key}
@@ -65,7 +82,7 @@ export function ArticleLibrary({
         <div className="mt-12 rounded-[22px] bg-white p-10 text-center ring-1 ring-line">
           <p className="font-display text-2xl text-ink">No articles match that yet.</p>
           <p className="mt-2 text-steel-deep">Try a broader word, or clear the filters.</p>
-          <button type="button" onClick={() => { setQ(""); setCat("all"); }} className="mt-5 min-h-11 rounded-full bg-ink px-5 font-semibold text-white">
+          <button type="button" onClick={() => { setQ(""); setCat("all"); setAud("all"); }} className="mt-5 min-h-11 rounded-full bg-ink px-5 font-semibold text-white">
             Clear filters
           </button>
         </div>

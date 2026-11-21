@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getClinic, getGp } from "@/lib/content";
-import { Container, Eyebrow, Icon, PageHero } from "@/components/ui";
+import { Container, Icon, PageHero } from "@/components/ui";
 import { Inline, Rich } from "@/components/rich";
 import { EnquiryForm } from "@/components/enquiry-form";
 
@@ -10,6 +10,15 @@ export const metadata: Metadata = {
   description: "Referral information for GPs: scope, assessment approach, communication, red-flag pathways and funding arrangements at Malak Chiropractic, Panania.",
   alternates: { canonical: "/for-gps" },
 };
+
+function H({ id, n, children }: { id: string; n: string; children: React.ReactNode }) {
+  return (
+    <h2 id={id} className="flex items-baseline gap-4 font-display text-display-sm text-ink">
+      <span className="font-sans text-sm font-semibold text-burgundy">{n}</span>
+      {children}
+    </h2>
+  )
+}
 
 const toc = [
   ["offer", "What we offer"],
@@ -25,12 +34,6 @@ const toc = [
 export default function GpPage() {
   const gp = getGp();
   const clinic = getClinic();
-  const H = ({ id, n, children }: { id: string; n: string; children: React.ReactNode }) => (
-    <h2 id={id} className="flex items-baseline gap-4 font-display text-display-sm text-ink">
-      <span className="font-sans text-sm font-semibold text-burgundy">{n}</span>
-      {children}
-    </h2>
-  );
   return (
     <>
       <PageHero eyebrow="For GPs and healthcare professionals" title="Musculoskeletal care that works alongside yours." intro={<p>{gp.intro}</p>}>

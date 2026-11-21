@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ARTICLE_CATEGORIES, getArticles } from "@/lib/content";
+import { ARTICLE_CATEGORIES, AUDIENCES, getArticles } from "@/lib/content";
 import { Container, PageHero, TextLink } from "@/components/ui";
 import { ArticleCard } from "@/components/article-card";
 import { ArticleLibrary } from "@/components/article-library";
@@ -26,8 +26,9 @@ export default function EducationPage() {
       <section className="bg-paper py-14 sm:py-20">
         <Container>
           <ArticleLibrary
-            items={articles.map((a) => ({ slug: a.slug, title: a.title, summary: a.summary, category: a.category, text: `${a.title} ${a.summary} ${a.body}`.toLowerCase() }))}
+            items={articles.map((a) => ({ slug: a.slug, title: a.title, summary: a.summary, category: a.category, audiences: a.audiences, text: `${a.title} ${a.summary} ${a.body}`.toLowerCase() }))}
             categories={ARTICLE_CATEGORIES.map((c) => ({ ...c, count: articles.filter((a) => a.category === c.key).length }))}
+            audiences={AUDIENCES.map((x) => ({ ...x, count: articles.filter((a) => a.audiences.includes(x.key)).length }))}
             cards={cards}
           />
         </Container>

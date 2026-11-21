@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 
 type Kind = "general" | "gp";
 type Errors = Partial<Record<string, string>>;
@@ -16,7 +16,10 @@ export function EnquiryForm({ kind = "general", phone, email }: { kind?: Kind; p
   const [errors, setErrors] = useState<Errors>({});
   const [state, setState] = useState<"idle" | "sending" | "sent" | "failed">("idle");
   const [failMsg, setFailMsg] = useState("");
-  const started = useRef(Date.now());
+  const started = useRef(0);
+  useEffect(() => {
+    started.current = Date.now();
+  }, []);
   const formRef = useRef<HTMLFormElement>(null);
 
   function validate(d: Record<string, string>): Errors {
@@ -66,12 +69,6 @@ export function EnquiryForm({ kind = "general", phone, email }: { kind?: Kind; p
 
   const field = "min-h-12 w-full rounded-xl border bg-paper px-4 text-ink outline-none transition focus:border-burgundy focus:bg-white focus:ring-4 focus:ring-burgundy/10";
   const border = (k: string) => (errors[k] ? "border-burgundy bg-white" : "border-line-strong");
-  const Err = ({ k }: { k: string }) =>
-    errors[k] ? (
-      <p id={`${k}-err`} className="text-sm font-medium text-burgundy">
-        {errors[k]}
-      </p>
-    ) : null;
 
   if (state === "sent") {
     return (
@@ -107,13 +104,13 @@ export function EnquiryForm({ kind = "general", phone, email }: { kind?: Kind; p
       <div className="flex flex-col gap-2">
         <label htmlFor={`${kind}-name`} className="text-sm font-semibold text-ink">{kind === "gp" ? "Your name and title" : "Full name"}</label>
         <input id={`${kind}-name`} name="name" autoComplete="name" className={`${field} ${border("name")}`} aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-err" : undefined} />
-        <Err k="name" />
+        <FieldError errors={errors} k="name" />
       </div>
       {kind === "gp" ? (
         <div className="flex flex-col gap-2">
           <label htmlFor="gp-practice" className="text-sm font-semibold text-ink">Practice</label>
           <input id="gp-practice" name="practice" autoComplete="organization" className={`${field} ${border("practice")}`} aria-invalid={!!errors.practice} aria-describedby={errors.practice ? "practice-err" : undefined} />
-          <Err k="practice" />
+          <FieldError errors={errors} k="practice" />
         </div>
       ) : (
         <div className="flex flex-col gap-2">
@@ -129,7 +126,7 @@ export function EnquiryForm({ kind = "general", phone, email }: { kind?: Kind; p
       <div className="flex flex-col gap-2">
         <label htmlFor={`${kind}-email`} className="text-sm font-semibold text-ink">Email</label>
         <input id={`${kind}-email`} name="email" type="email" autoComplete="email" className={`${field} ${border("email")}`} aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-err" : undefined} />
-        <Err k="email" />
+        <FieldError errors={errors} k="email" />
       </div>
       <div className="flex flex-col gap-2">
         <label htmlFor={`${kind}-phone`} className="text-sm font-semibold text-ink">
@@ -140,14 +137,14 @@ export function EnquiryForm({ kind = "general", phone, email }: { kind?: Kind; p
       <div className="flex flex-col gap-2 sm:col-span-2">
         <label htmlFor={`${kind}-message`} className="text-sm font-semibold text-ink">Message</label>
         <textarea id={`${kind}-message`} name="message" rows={5} className={`${field} ${border("message")} py-3`} aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-err" : undefined} />
-        <Err k="message" />
+        <FieldError errors={errors} k="message" />
       </div>
       <div className="flex flex-col gap-2 sm:col-span-2">
         <label className="flex items-start gap-3 text-sm text-[#2b2f34]">
           <input type="checkbox" name="ack" value="yes" className="mt-0.5 h-5 w-5 shrink-0 accent-burgundy" aria-invalid={!!errors.ack} />
           {kind === "gp" ? "I confirm this enquiry contains no identifiable patient information." : "I understand this form is for general enquiries and isn't monitored for emergencies."}
         </label>
-        <Err k="ack" />
+        <FieldError errors={errors} k="ack" />
       </div>
       <div className="flex flex-wrap items-center gap-4 sm:col-span-2">
         <button type="submit" disabled={state === "sending"} className="inline-flex min-h-11 items-center rounded-full bg-burgundy px-6 font-semibold text-white transition hover:bg-burgundy-deep disabled:opacity-60">
@@ -167,4 +164,12 @@ export function EnquiryForm({ kind = "general", phone, email }: { kind?: Kind; p
       )}
     </form>
   );
+}
+
+function FieldError({ errors, k }: { errors: Errors; k: string }) {
+  return errors[k] ? (
+    <p id={`${k}-err`} className="text-sm font-medium text-burgundy">
+      {errors[k]}
+    </p>
+  ) : null;
 }

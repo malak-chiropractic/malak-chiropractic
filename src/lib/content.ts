@@ -133,6 +133,7 @@ export type Article = {
   title: string;
   summary: string;
   category: string;
+  audiences: string[];
   author: string;
   publishDate: string;
   status: ArticleStatus;
@@ -198,6 +199,19 @@ export const ARTICLE_CATEGORIES: { key: string; label: string }[] = [
   { key: "faq", label: "Frequently Asked Questions" },
   { key: "chiropractic-care-explained", label: "Chiropractic Care Explained" },
 ];
+
+export const AUDIENCES: { key: string; label: string }[] = [
+  { key: "desk-workers", label: "Desk and office workers" },
+  { key: "manual-workers", label: "Tradies and manual workers" },
+  { key: "injured-workers", label: "Injured workers (workers comp)" },
+  { key: "pregnancy", label: "Pregnancy and postnatal" },
+  { key: "parents", label: "Parents and children" },
+  { key: "active", label: "Active people and runners" },
+  { key: "older-adults", label: "Older adults" },
+  { key: "persistent-pain", label: "People living with persistent pain" },
+  { key: "everyone", label: "Everyone" },
+];
+export const audienceLabel = (k: string) => AUDIENCES.find((a) => a.key === k)?.label ?? k;
 
 export function categoryLabel(key: string) {
   return ARTICLE_CATEGORIES.find((c) => c.key === key)?.label ?? key;
@@ -291,6 +305,7 @@ function loadArticle(slug: string): Article {
     title: String(data.title ?? slug),
     summary: String(data.summary ?? ""),
     category: String(data.category ?? ""),
+    audiences: (data.audiences as string[]) ?? [],
     author: String(data.author ?? ""),
     publishDate: toDateString(data.publishDate),
     status: (data.status as ArticleStatus) ?? "draft",

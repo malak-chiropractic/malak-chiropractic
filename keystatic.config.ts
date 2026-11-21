@@ -52,6 +52,21 @@ export default config({
             { label: "Chiropractic Care Explained", value: "chiropractic-care-explained" },
           ],
         }),
+        audiences: fields.multiselect({
+          label: "Written for",
+          description: "Who is this article mainly for? Readers can filter the library by audience.",
+          options: [
+            { label: "Desk and office workers", value: "desk-workers" },
+            { label: "Tradies and manual workers", value: "manual-workers" },
+            { label: "Injured workers (workers comp)", value: "injured-workers" },
+            { label: "Pregnancy and postnatal", value: "pregnancy" },
+            { label: "Parents and children", value: "parents" },
+            { label: "Active people and runners", value: "active" },
+            { label: "Older adults", value: "older-adults" },
+            { label: "People living with persistent pain", value: "persistent-pain" },
+            { label: "Everyone", value: "everyone" },
+          ],
+        }),
         author: fields.text({ label: "Author", defaultValue: "Dr Jasmine Malak" }),
         status: fields.select({
           label: "Status",

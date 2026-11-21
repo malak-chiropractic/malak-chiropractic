@@ -12,7 +12,6 @@ export function SiteHeader({ bookingUrl }: { bookingUrl: string }) {
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -128,7 +127,7 @@ export function SiteHeader({ bookingUrl }: { bookingUrl: string }) {
         className="fixed inset-x-0 bottom-0 overflow-y-auto bg-paper xl:hidden"
         style={{ top: "var(--header-h)" }}
       >
-        <nav aria-label="Mobile" className="mx-auto flex min-h-full max-w-[1240px] flex-col px-5 pb-10 pt-4 sm:px-8">
+        <nav aria-label="Mobile" onClick={(e) => { if ((e.target as HTMLElement).closest("a")) setOpen(false); }} className="mx-auto flex min-h-full max-w-[1240px] flex-col px-5 pb-10 pt-4 sm:px-8">
           <ul className="border-t border-line">
             {[{ href: "/", label: "Home" }, ...NAV].map((item, i) => (
               <li key={item.href} className="border-b border-line">
