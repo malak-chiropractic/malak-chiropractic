@@ -10,10 +10,10 @@ scope:
 - Peripheral musculoskeletal complaints (shoulder, hip, knee) suited to exercise-led management
 - Work-related musculoskeletal conditions, including SIRA workers compensation claims
 scopeNote: Presentations within scope are assessed for suitability; we do not guarantee outcomes. We do not manage systemic, visceral or developmental conditions with chiropractic care.
-referrals: 'GP referral is not required for private patients. For Medicare-subsidised care, patients require a GP Chronic Condition Management Plan and a referral letter to Malak Chiropractic (up to 5 allied health services per calendar year, shared across providers). We also accept DVA (D904 referral) and NSW workers compensation referrals. [TO CONFIRM: preferred referral format and addressee details]'
-medicare: 'Medicare-referred consultations: [TO CONFIRM: fee and patient gap]. Private patients: HICAPS claiming available. DVA and SIRA workers compensation: no gap for approved services. [TO CONFIRM: provider number for this location — to be supplied on referral correspondence, not published]'
+referrals: 'GP referral is not required for private patients. For Medicare-subsidised care, patients require a GP Chronic Condition Management Plan and a referral letter to Malak Chiropractic (up to 5 allied health services per calendar year, shared across providers). We also accept DVA (D904 referral) and NSW workers compensation referrals. Please address referrals to Dr Jasmine Malak, Malak Chiropractic.'
+medicare: 'Medicare-referred consultations: initial $99.00 and follow-up $80.00 ($125.00 and $85.00 from 1 January 2027), less the Medicare rebate of $63.40. Private patients: HICAPS claiming available. DVA and SIRA workers compensation: billed directly, no out-of-pocket cost to the patient. Provider number is supplied on referral correspondence.'
 assessment: History includes mechanism, symptom behaviour, 24-hour pattern, prior episodes and response to treatment, general health, medications, and psychosocial factors (e.g. fear-avoidance, work context). Examination includes active and passive range of motion, palpation, provocation and orthopaedic testing, and neurological screening (dermatomes, myotomes, reflexes, neurodynamic tests, upper motor neuron signs where indicated). Red flags are screened using contemporary frameworks. Imaging is requested only where clinically indicated, consistent with the ACSQHC Low Back Pain Clinical Care Standard.
-communication: 'With patient consent, we send a written report after the initial assessment (required after the first and last service under a Medicare referral), including findings, working diagnosis, management plan and expected review timeframe. Further updates are sent at discharge or if the clinical picture changes. Correspondence is sent via [TO CONFIRM: secure messaging system, e.g. HealthLink/Medical Objects/fax]. As we practise within Panania Family Doctors, we can also liaise directly with in-house GPs.'
+communication: 'With patient consent, we send a written report after the initial assessment (required after the first and last service under a Medicare referral), including findings, working diagnosis, management plan and expected review timeframe. Further updates are sent at discharge or if the clinical picture changes. Correspondence is sent by email or through Panania Family Doctors reception. As we practise within Panania Family Doctors, we can also liaise directly with in-house GPs.'
 referBack:
 - Red flags suggestive of serious pathology (malignancy, infection, fracture, cauda equina, inflammatory arthropathy, vascular pathology)
 - Progressive or significant neurological deficit
@@ -21,7 +21,7 @@ referBack:
 - Failure to improve as expected within the agreed review period (typically 4–6 weeks)
 - Need for imaging, pharmacological management or specialist opinion
 - Significant psychosocial barriers that would benefit from psychology or multidisciplinary pain services
-secureReferral: '[TO CONFIRM: secure referral pathway — secure messaging ID, fax number or encrypted email. Until confirmed, please send referrals with the patient or via the Panania Family Doctors internal system.]'
+secureReferral: 'Send referrals (including GP Chronic Condition Management Plan referrals) by email to malakchiropractic@gmail.com, to Panania Family Doctors reception, or give the patient a printed copy to bring to their appointment.'
 faqs:
 - q: Do patients require a referral?
   a: No, private patients can self-refer. A referral is required for Medicare (GP Chronic Condition Management Plan), DVA and workers compensation.
@@ -38,4 +38,4 @@ faqs:
 - q: What are your referral pathways for red flags?
   a: Suspected emergencies (e.g. cauda equina, vascular events) are directed to the emergency department immediately. Other concerning findings are referred back to the patient's GP the same day where possible, with a written summary.
 - q: What funding and rebate arrangements apply?
-  a: 'Private health (HICAPS), Medicare under a GPCCMP, DVA and SIRA workers compensation. [TO CONFIRM: fees and gaps for each funding type]'
+  a: 'Private health (HICAPS); Medicare under a GPCCMP (fee less the $63.40 rebate); DVA and SIRA workers compensation, billed directly with no out-of-pocket cost to the patient.'

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getClinic, getPricing, fullAddress } from "@/lib/content";
+import { getClinic, getPricing, fullAddress, priceNow } from "@/lib/content";
 import { BookButton, Container, Eyebrow, Icon, PageHero, TextLink } from "@/components/ui";
 import { Inline } from "@/components/rich";
 import { MapEmbed } from "@/components/map-embed";
@@ -16,7 +16,7 @@ export default function NewPatientsPage() {
   const prep = [
     { icon: "consult", t: "What to wear", d: "Comfortable clothing you can move in, like activewear. Most assessments don't require undressing, and we'll always explain and ask first." },
     { icon: "doc", t: "What to bring", d: "A list of your medications, any relevant scans or reports, your health fund card, and any referral letter (Medicare, DVA or workers compensation)." },
-    { icon: "clock", t: "How long it takes", d: p.items[0]?.duration ?? "[TO CONFIRM: duration]" },
+    { icon: "clock", t: "How long it takes", d: `Your first visit is ${p.items[0]?.duration ?? "30 minutes"}, and follow-ups are ${p.items[1]?.duration ?? "15 minutes"}.` },
     { icon: "shield", t: "Do I need X-rays?", d: "Usually not. Imaging is only considered when there are signs of a serious condition or when results would change your care — and we'd coordinate it with your GP." },
   ];
   return (
@@ -81,7 +81,10 @@ export default function NewPatientsPage() {
                     {i.duration && <p className="mt-0.5 text-sm text-steel-deep"><Inline text={i.duration} /></p>}
                     <p className="mt-2 text-[0.95rem] leading-relaxed text-[#2b2f34]">{i.description}</p>
                   </div>
-                  <p className="font-display text-2xl text-ink sm:col-span-4 sm:text-right"><Inline text={i.price} /></p>
+                  <div className="sm:col-span-4 sm:text-right">
+                    <p className="font-display text-2xl text-ink"><Inline text={priceNow(i).price} /></p>
+                    {priceNow(i).upcoming && <p className="mt-1 text-sm text-steel-deep">{priceNow(i).upcoming!.price} from {priceNow(i).upcoming!.from}</p>}
+                  </div>
                 </li>
               ))}
             </ul>

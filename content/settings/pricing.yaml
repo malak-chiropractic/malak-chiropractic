@@ -1,23 +1,19 @@
 intro: Fees are shown in Australian dollars and are charged at the time of your appointment. We'll always tell you what an appointment will cost before it begins.
 items:
   - name: Initial consultation
-    duration: '[TO CONFIRM: duration]'
-    price: '[TO CONFIRM: fee]'
+    duration: 30 minutes
+    price: $99.00
+    newPrice: $125.00
+    newPriceFrom: '2027-01-01'
     description: Detailed history, physical and neurological examination, discussion of findings, and treatment where clinically appropriate and you consent.
-  - name: Standard follow-up consultation
-    duration: '[TO CONFIRM: duration]'
-    price: '[TO CONFIRM: fee]'
+  - name: Follow-up consultation
+    duration: 15 minutes
+    price: $80.00
+    newPrice: $85.00
+    newPriceFrom: '2027-01-01'
     description: Review of progress, reassessment, and continued care in line with your management plan.
-  - name: Extended consultation
-    duration: '[TO CONFIRM: duration]'
-    price: '[TO CONFIRM: fee, or remove if not offered]'
-    description: For more complex presentations or where additional assessment time is needed.
-  - name: Additional services billed separately
-    duration: ''
-    price: '[TO CONFIRM: list any separately billed services, or remove]'
-    description: Any separately billed service will be discussed with you before it is provided.
 payments: 'On-the-spot HICAPS private health claiming is available. [TO CONFIRM: accepted payment methods — card, EFTPOS, cash]'
 rebates: 'Rebates depend on your private health fund and level of extras cover. Please check with your fund before your appointment. We cannot guarantee rebate amounts.'
-medicare: 'Patients referred by their GP under a GP Chronic Condition Management Plan may be eligible for a Medicare rebate for up to 5 allied health services per calendar year (shared across all allied health providers). [TO CONFIRM: fee and expected out-of-pocket cost for Medicare-referred consultations]'
-dvaWorkersComp: 'We accept DVA and NSW workers compensation (SIRA-approved) patients, with no gap charged for approved services. [TO CONFIRM: wording and any approval requirements]'
-cancellation: 'Please give at least 4 hours’ notice if you need to cancel or reschedule. A fee may apply for late cancellations or missed appointments. [TO CONFIRM: late-cancellation fee amount]'
+medicare: 'With a GP Chronic Condition Management Plan and referral, Medicare currently pays a rebate of $63.40 per visit for up to 5 allied health visits each calendar year (shared across all allied health providers). Your out-of-pocket cost is the consultation fee less the rebate.'
+dvaWorkersComp: 'DVA (Veteran Card holders with a GP referral) and NSW workers compensation patients pay nothing out of pocket. Fees are billed directly to DVA or your workers compensation insurer. For workers compensation, please bring your claim number and insurer details, as treatment needs to be approved by your insurer.'
+cancellation: 'Please give at least 4 hours’ notice if you need to cancel or reschedule. A $30.00 fee applies to late cancellations and missed appointments.'

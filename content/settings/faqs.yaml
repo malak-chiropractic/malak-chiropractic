@@ -34,7 +34,7 @@ items:
   answer: A list of medications, any relevant scans or reports, your health fund card, and any referral letters. You don't need X-rays or scans to book.
 - category: before
   question: How long is the first appointment?
-  answer: '[TO CONFIRM: initial consultation duration]'
+  answer: Your initial consultation is 30 minutes. Follow-up visits are 15 minutes.
 - category: safety
   question: Is chiropractic treatment safe?
   answer: All health treatments carry some risk. Mild soreness or stiffness for a day or two is common after manual therapy. Serious complications are rare. We screen for risk factors before treatment and discuss the risks and benefits relevant to you.
@@ -64,13 +64,13 @@ items:
   answer: We assess children where a musculoskeletal concern makes assessment clinically appropriate, with a parent or guardian's consent and presence. Care is adapted to age and size. We don't claim chiropractic care treats childhood illnesses or developmental conditions, and we'll refer to a GP or paediatrician whenever that's more appropriate.
 - category: pricing
   question: How much does an appointment cost?
-  answer: 'See our New Patients page for current fees. [TO CONFIRM: fees]'
+  answer: 'An initial consultation is $99.00 and a follow-up is $80.00. From 1 January 2027 these will be $125.00 and $85.00. Medicare, DVA and workers compensation details are on our New Patients page.'
 - category: pricing
   question: Can I claim on private health insurance?
   answer: If your extras cover includes chiropractic, you may be able to claim. We offer on-the-spot HICAPS claiming. Rebates depend on your fund and level of cover.
 - category: pricing
   question: Is chiropractic covered by Medicare?
-  answer: Medicare rebates are available for up to 5 allied health services per calendar year if your GP has prepared a Chronic Condition Management Plan and referred you. The 5 services are shared across all allied health providers. A gap fee may apply.
+  answer: Medicare rebates are available for up to 5 allied health services per calendar year if your GP has prepared a Chronic Condition Management Plan and referred you. The rebate is currently $63.40 per visit. The 5 services are shared across all allied health providers. A gap fee may apply.
 - category: pricing
   question: Do you accept DVA and workers compensation?
   answer: Yes. We accept DVA and NSW workers compensation patients. Malak Chiropractic is SIRA-approved. Please bring your claim number and referral details.
@@ -85,7 +85,7 @@ items:
   answer: Book online at any time through our Cliniko booking page, or call us. Online booking is available for initial and follow-up appointments.
 - category: booking
   question: What is your cancellation policy?
-  answer: Please give at least 4 hours' notice to cancel or reschedule. A fee may apply for late cancellations or missed appointments.
+  answer: Please give at least 4 hours' notice to cancel or reschedule. A $30.00 fee applies to late cancellations and missed appointments.
 - category: booking
   question: When is the clinic open?
   answer: 'The clinic is open on Tuesdays, 9:00 AM – 5:00 PM.'

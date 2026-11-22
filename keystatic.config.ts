@@ -238,7 +238,7 @@ export default config({
       schema: {
         intro: fields.text({ label: "Introduction", multiline: true }),
         items: fields.array(
-          fields.object({ name: fields.text({ label: "Name" }), duration: fields.text({ label: "Duration" }), price: fields.text({ label: "Price" }), description: fields.text({ label: "Description", multiline: true }) }),
+          fields.object({ name: fields.text({ label: "Name" }), duration: fields.text({ label: "Duration" }), price: fields.text({ label: "Price" }), newPrice: fields.text({ label: "New price (optional)", description: "Shown as an upcoming change, then used automatically from the date below" }), newPriceFrom: fields.text({ label: "New price starts (YYYY-MM-DD)" }), description: fields.text({ label: "Description", multiline: true }) }),
           { label: "Fees", itemLabel: (p) => `${p.fields.name.value} — ${p.fields.price.value}` }
         ),
         payments: fields.text({ label: "Payment methods", multiline: true }),

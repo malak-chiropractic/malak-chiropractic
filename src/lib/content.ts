@@ -51,7 +51,7 @@ export type Clinic = {
 
 export type Pricing = {
   intro: string;
-  items: { name: string; duration: string; price: string; description: string }[];
+  items: { name: string; duration: string; price: string; newPrice?: string; newPriceFrom?: string; description: string }[];
   payments: string;
   rebates: string;
   medicare: string;
@@ -372,3 +372,12 @@ export type AnatomyRegion = {
   conditions: string[];
 };
 export const getAnatomy = () => readYaml<{ intro: string; regions: AnatomyRegion[] }>("settings/anatomy.yaml");
+
+/** Price shown today, plus any announced change still to come. Daily rebuild switches it over automatically. */
+export function priceNow(i: Pricing["items"][number]): { price: string; upcoming?: { price: string; from: string } } {
+  if (i.newPrice && i.newPriceFrom) {
+    if (todaySydney() >= i.newPriceFrom) return { price: i.newPrice };
+    return { price: i.price, upcoming: { price: i.newPrice, from: formatDate(i.newPriceFrom) } };
+  }
+  return { price: i.price };
+}

@@ -34,7 +34,7 @@ export default function ReferralSheet() {
           <div className="mt-6 grid gap-6 text-[0.92rem] leading-relaxed text-[#2b2f34] sm:grid-cols-2">
             <section>
               <h2 className="font-semibold text-ink">Practitioner</h2>
-              <p>Dr Jasmine Malak, Chiropractor — BChiroSc, MChiro (Macquarie). <Inline text="[TO CONFIRM: AHPRA registration number]" /></p>
+              <p>Dr Jasmine Malak, Chiropractor — BChiroSc, MChiro (Macquarie). AHPRA registration CHI0002895179.</p>
               <h2 className="mt-4 font-semibold text-ink">Clinic hours</h2>
               <p>{c.hours.filter((h) => h.open).map((h) => `${h.day} ${h.note}`).join(" · ")}</p>
               <h2 className="mt-4 font-semibold text-ink">Scope</h2>
