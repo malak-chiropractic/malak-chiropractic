@@ -12,7 +12,7 @@ items:
     newPrice: $85.00
     newPriceFrom: '2027-01-01'
     description: Review of progress, reassessment, and continued care in line with your management plan.
-payments: 'On-the-spot HICAPS private health claiming is available. [TO CONFIRM: accepted payment methods — card, EFTPOS, cash]'
+payments: 'We accept all major cards, including American Express, and EFTPOS. We don’t accept cash. On-site HICAPS private health claiming is available.'
 rebates: 'Rebates depend on your private health fund and level of extras cover. Please check with your fund before your appointment. We cannot guarantee rebate amounts.'
 medicare: 'With a GP Chronic Condition Management Plan and referral, Medicare currently pays a rebate of $63.40 per visit for up to 5 allied health visits each calendar year (shared across all allied health providers). Your out-of-pocket cost is the consultation fee less the rebate.'
 dvaWorkersComp: 'DVA (Veteran Card holders with a GP referral) and NSW workers compensation patients pay nothing out of pocket. Fees are billed directly to DVA or your workers compensation insurer. For workers compensation, please bring your claim number and insurer details, as treatment needs to be approved by your insurer.'

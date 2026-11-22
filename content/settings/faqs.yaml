@@ -69,6 +69,9 @@ items:
   question: Can I claim on private health insurance?
   answer: If your extras cover includes chiropractic, you may be able to claim. We offer on-the-spot HICAPS claiming. Rebates depend on your fund and level of cover.
 - category: pricing
+  question: How can I pay?
+  answer: We accept all major cards, including American Express, and EFTPOS. We don't accept cash.
+- category: pricing
   question: Is chiropractic covered by Medicare?
   answer: Medicare rebates are available for up to 5 allied health services per calendar year if your GP has prepared a Chronic Condition Management Plan and referred you. The rebate is currently $63.40 per visit. The 5 services are shared across all allied health providers. A gap fee may apply.
 - category: pricing
