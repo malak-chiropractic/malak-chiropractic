@@ -17,7 +17,7 @@ You'll need: a GitHub account, a Vercel account and a Resend account.
 
 ## 3. Domain
 1. Buy the domain (e.g. `malakchiropractic.com.au`). A `.com.au` needs your ABN.
-2. In Vercel → Project → Settings → Domains, add `www.yourdomain.com.au` and `yourdomain.com.au`.
+2. In Vercel → Project → Settings → Domains, add `www.malakchiropractic.com.au` and `malakchiropractic.com.au`.
 3. At your registrar, add the DNS records Vercel shows: an A record for the apex and a CNAME for `www`. HTTPS is automatic.
 4. Set `NEXT_PUBLIC_SITE_URL` to the final address and redeploy.
 
@@ -27,7 +27,7 @@ You'll need: a GitHub account, a Vercel account and a Resend account.
 | `NEXT_PUBLIC_SITE_URL` | Yes | Canonical URLs, sitemap and structured data, e.g. `https://www.malakchiropractic.com.au` |
 | `RESEND_API_KEY` | Yes | Sends form enquiries (resend.com → API Keys) |
 | `CONTACT_TO_EMAIL` | Yes | Where enquiries arrive |
-| `CONTACT_FROM_EMAIL` | Yes | A sender on your verified domain, e.g. `Malak Chiropractic <website@yourdomain.com.au>` |
+| `CONTACT_FROM_EMAIL` | Yes | A sender on your verified domain, e.g. `Malak Chiropractic <website@malakchiropractic.com.au>` |
 | `NEXT_PUBLIC_KEYSTATIC_REPO` | Yes | `github-username/repository-name` |
 | `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET`, `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` | Yes | Created by the Keystatic setup screen |
 | `DEPLOY_HOOK_URL`, `CRON_SECRET` | Yes | Daily rebuild for scheduled articles |
@@ -75,7 +75,7 @@ Go to `/keystatic` and sign in with GitHub.
 Check current prices before signing up.
 
 ## 10. Google Search Console and Business Profile
-- **Search Console:** add the domain property, verify by DNS, and submit `https://yourdomain/sitemap.xml`.
+- **Search Console:** add the domain property, verify by DNS, and submit `https://www.malakchiropractic.com.au/sitemap.xml`.
 - **Business Profile:** use exactly the same name, address and phone as the site ("Malak Chiropractic, 75 Anderson Avenue, Panania NSW 2213, 02 9053 8383"). Category: Chiropractor. Link to the homepage and set the booking link to Cliniko. Don't reuse patient reviews in your own advertising (see the compliance checklist).
 - **Local SEO:** the site serves Panania, Revesby, Padstow, Picnic Point, East Hills and Bankstown through genuinely useful content. There are no separate suburb pages, by design.
 

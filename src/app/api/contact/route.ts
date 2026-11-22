@@ -4,7 +4,7 @@ import { z } from "zod";
  * Enquiry delivery. Requires (see .env.example):
  *   RESEND_API_KEY      — API key from resend.com (free tier is plenty)
  *   CONTACT_TO_EMAIL    — where enquiries are delivered
- *   CONTACT_FROM_EMAIL  — a verified sender on your domain, e.g. "Malak Chiropractic <web@yourdomain>"
+ *   CONTACT_FROM_EMAIL  — a verified sender on your domain, e.g. "Malak Chiropractic <website@malakchiropractic.com.au>"
  * If these are missing the endpoint returns 503 and the form tells the visitor to call or email instead.
  */
 
